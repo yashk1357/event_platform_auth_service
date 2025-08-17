@@ -24,6 +24,7 @@ gem "pundit"                      # Authorization
 gem "sidekiq"                     # Background jobs
 
 group :development, :test do
+  gem 'byebug'
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false

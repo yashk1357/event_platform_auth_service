@@ -10,8 +10,8 @@ class AuthController < ApplicationController
   end
   
   def login
-    user = User.find_by(email: params[:email])
-    if user&.authenticate(params[:password])
+    user = User.find_by(email: params[:user][:email])
+    if user&.authenticate(params[:user][:password])
       token = generate_jwt_token(user)
       render json: { token: token, user: user }, status: :ok
     else
@@ -25,7 +25,7 @@ class AuthController < ApplicationController
   end
 
   def generate_jwt_token(user)
-    JWT.encode({ id: user.id })
+    JsonWebToken.encode({ id: user.id }, 24.hours.from_now.to_i)
     rescue JWT::EncodeError
   end
 end
